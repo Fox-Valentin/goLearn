@@ -1,0 +1,10 @@
+<!--  Edited by XMLSpy®  -->
+<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>
+    <message Include="in1">Don't forget me this weekend!</message>
+    <message Include="in1">Don't forget me this weekend!</message>
+</body>
+</note>
