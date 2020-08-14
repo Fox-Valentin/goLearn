@@ -3,7 +3,8 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"crawler"
+
+	// "crawler"
 	"fmt"
 	"interface_demo"
 	"io"
@@ -12,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexpdemo"
 	"retriever/mock"
 	"retriever/real"
 	"retrievers"
@@ -260,5 +262,6 @@ func inspects(r retrievers.Retriever) {
 	}
 }
 func main() {
-	crawler.MainRun()
+	// crawler.MainRun()
+	regexpdemo.Demo()
 }
