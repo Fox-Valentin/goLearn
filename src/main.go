@@ -3,25 +3,25 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"learngo/src/crawler"
 
 	// "crawler"
 	"fmt"
-	"interface_demo"
 	"io"
+	"learngo/src/interface_demo"
+	"learngo/src/retriever/mock"
+	"learngo/src/retriever/real"
+	"learngo/src/retrievers"
+	"learngo/src/retrievers/mocks"
+	"learngo/src/retrievers/reals"
+	"learngo/src/tree"
 	"math"
 	"math/cmplx"
 	"os"
 	"path/filepath"
 	"reflect"
-	"regexpdemo"
-	"retriever/mock"
-	"retriever/real"
-	"retrievers"
-	"retrievers/mocks"
-	"retrievers/reals"
 	"runtime"
 	"strconv"
-	"tree"
 )
 
 type myTreeNode struct {
@@ -262,6 +262,6 @@ func inspects(r retrievers.Retriever) {
 	}
 }
 func main() {
-	// crawler.MainRun()
-	regexpdemo.Demo()
+	crawler.MainRun()
+	//regexpdemo.Demo()
 }
