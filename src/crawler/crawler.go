@@ -1,53 +1,15 @@
 package crawler
 
 import (
-	"bufio"
-	"fmt"
-	"io"
-	"io/ioutil"
-	"net/http"
-	"regexp"
-
-	"golang.org/x/net/html/charset"
-	"golang.org/x/text/encoding"
-	"golang.org/x/text/transform"
+	"learngo/src/crawler/engine"
+	"learngo/src/crawler/zhenai/parser"
 )
 
-func handleErr(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func printCityList(contents []byte) {
-	re := regexp.MustCompile(`(http://www.zhenai.com/zhenghun/[a-z0-9]+)"[^>]*>([^<]+)</a>`)
-	matchs := re.FindAllSubmatch(contents, -1)
-	for _, m := range matchs {
-		fmt.Printf("City: %s; URL: %s \n", m[2], m[1])
-	}
-	fmt.Printf("mathces found %d", len(matchs))
-}
-func determinEncoding(r io.Reader) encoding.Encoding {
-	bytes, err := bufio.NewReader(r).Peek(1024)
-	handleErr(err)
-	e, _, _ := charset.DetermineEncoding(bytes, "")
-	return e
-}
+const targetUrl = "http://www.zhenai.com/zhenghun"
 
 func MainRun() {
-	const targetUrl = "http://www.zhenai.com/zhenghun"
-	resp, err := http.Get(targetUrl)
-	handleErr(err)
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		fmt.Println("Error: status code:", resp.StatusCode)
-		return
-	}
-	e := determinEncoding(resp.Body)
-	utf8Reader := transform.NewReader(resp.Body, e.NewDecoder())
-	all, err := ioutil.ReadAll(utf8Reader)
-	handleErr(err)
-	printCityList(all)
-	//fmt.Printf("%s\n", all)
-
+	engine.Run(engine.Request{
+		Url:        targetUrl,
+		ParserFunc: parser.ParserCityList,
+	})
 }
